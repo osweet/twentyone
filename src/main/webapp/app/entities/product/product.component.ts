@@ -6,6 +6,7 @@ import { IProduct } from '@/shared/model/product.model';
 
 import ProductService from './product.service';
 import AlertService from '@/shared/alert/alert.service';
+import AccountService from '@/account/account.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
@@ -26,6 +27,24 @@ export default class Product extends Vue {
   public products: IProduct[] = [];
 
   public isFetching = false;
+
+  private hasAnyAuthorityValue = false;
+
+  @Inject('accountService')
+  private accountService: () => AccountService;
+
+  public hasAnyAuthority(authorities: any): boolean {
+    this.accountService()
+      .hasAnyAuthorityAndCheckAuth(authorities)
+      .then(value => {
+        this.hasAnyAuthorityValue = value;
+      });
+    return this.hasAnyAuthorityValue;
+  }
+
+  public get authenticated(): boolean {
+    return this.$store.getters.authenticated;
+  }
 
   public mounted(): void {
     this.retrieveAllProducts();

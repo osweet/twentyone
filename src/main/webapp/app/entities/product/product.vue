@@ -30,6 +30,9 @@
             <th scope="row" v-on:click="changeOrder('id')">
               <span>ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
+            <th scope="row">
+              <span>Img</span>
+            </th>
             <th scope="row" v-on:click="changeOrder('name')">
               <span>Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'name'"></jhi-sort-indicator>
             </th>
@@ -41,7 +44,9 @@
               <span>Category</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'category'"></jhi-sort-indicator>
             </th>
-            <th scope="row"></th>
+            <th scope="row">
+              <span v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated">Action</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -49,11 +54,12 @@
             <td>
               <router-link :to="{ name: 'ProductView', params: { productId: product.id } }">{{ product.id }}</router-link>
             </td>
+            <td><img src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/mobile_phone.png" /></td>
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
             <td>{{ product.category }}</td>
             <td class="text-right">
-              <div class="btn-group">
+              <div class="btn-group" v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated">
                 <router-link :to="{ name: 'ProductView', params: { productId: product.id } }" custom v-slot="{ navigate }">
                   <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
                     <font-awesome-icon icon="eye"></font-awesome-icon>

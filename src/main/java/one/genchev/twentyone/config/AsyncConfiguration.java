@@ -27,6 +27,8 @@ public class AsyncConfiguration implements AsyncConfigurer {
         this.taskExecutionProperties = taskExecutionProperties;
     }
 
+    public String name;
+
     @Override
     @Bean(name = "taskExecutor")
     public Executor getAsyncExecutor() {
