@@ -49,6 +49,18 @@
               v-model="$v.product.category.$model"
             />
           </div>
+          <div class="form-group">
+            <label class="form-control-label" for="product-color">Color</label>
+            <input
+              type="text"
+              class="form-control"
+              name="color"
+              id="product-color"
+              data-cy="color"
+              :class="{ valid: !$v.product.color.$invalid, invalid: $v.product.color.$invalid }"
+              v-model="$v.product.color.$model"
+            />
+          </div>
         </div>
         <div>
           <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" v-on:click="previousState()">

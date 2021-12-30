@@ -43,6 +43,9 @@ class ProductResourceIT {
     private static final String DEFAULT_CATEGORY = "AAAAAAAAAA";
     private static final String UPDATED_CATEGORY = "BBBBBBBBBB";
 
+    private static final String DEFAULT_COLOR = "AAAAAAAAAA";
+    private static final String UPDATED_COLOR = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/products";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -70,7 +73,7 @@ class ProductResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Product createEntity(EntityManager em) {
-        Product product = new Product().name(DEFAULT_NAME).price(DEFAULT_PRICE).category(DEFAULT_CATEGORY);
+        Product product = new Product().name(DEFAULT_NAME).price(DEFAULT_PRICE).category(DEFAULT_CATEGORY).color(DEFAULT_COLOR);
         return product;
     }
 
@@ -81,7 +84,7 @@ class ProductResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Product createUpdatedEntity(EntityManager em) {
-        Product product = new Product().name(UPDATED_NAME).price(UPDATED_PRICE).category(UPDATED_CATEGORY);
+        Product product = new Product().name(UPDATED_NAME).price(UPDATED_PRICE).category(UPDATED_CATEGORY).color(UPDATED_COLOR);
         return product;
     }
 
@@ -125,6 +128,7 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testProduct.getCategory()).isEqualTo(DEFAULT_CATEGORY);
+        assertThat(testProduct.getColor()).isEqualTo(DEFAULT_COLOR);
     }
 
     @Test
@@ -173,7 +177,9 @@ class ProductResourceIT {
             .jsonPath("$.[*].price")
             .value(hasItem(DEFAULT_PRICE.doubleValue()))
             .jsonPath("$.[*].category")
-            .value(hasItem(DEFAULT_CATEGORY));
+            .value(hasItem(DEFAULT_CATEGORY))
+            .jsonPath("$.[*].color")
+            .value(hasItem(DEFAULT_COLOR));
     }
 
     @Test
@@ -199,7 +205,9 @@ class ProductResourceIT {
             .jsonPath("$.price")
             .value(is(DEFAULT_PRICE.doubleValue()))
             .jsonPath("$.category")
-            .value(is(DEFAULT_CATEGORY));
+            .value(is(DEFAULT_CATEGORY))
+            .jsonPath("$.color")
+            .value(is(DEFAULT_COLOR));
     }
 
     @Test
@@ -223,7 +231,7 @@ class ProductResourceIT {
 
         // Update the product
         Product updatedProduct = productRepository.findById(product.getId()).block();
-        updatedProduct.name(UPDATED_NAME).price(UPDATED_PRICE).category(UPDATED_CATEGORY);
+        updatedProduct.name(UPDATED_NAME).price(UPDATED_PRICE).category(UPDATED_CATEGORY).color(UPDATED_COLOR);
         ProductDTO productDTO = productMapper.toDto(updatedProduct);
 
         webTestClient
@@ -242,6 +250,7 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testProduct.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testProduct.getColor()).isEqualTo(UPDATED_COLOR);
     }
 
     @Test
@@ -340,6 +349,7 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testProduct.getCategory()).isEqualTo(DEFAULT_CATEGORY);
+        assertThat(testProduct.getColor()).isEqualTo(DEFAULT_COLOR);
     }
 
     @Test
@@ -353,7 +363,7 @@ class ProductResourceIT {
         Product partialUpdatedProduct = new Product();
         partialUpdatedProduct.setId(product.getId());
 
-        partialUpdatedProduct.name(UPDATED_NAME).price(UPDATED_PRICE).category(UPDATED_CATEGORY);
+        partialUpdatedProduct.name(UPDATED_NAME).price(UPDATED_PRICE).category(UPDATED_CATEGORY).color(UPDATED_COLOR);
 
         webTestClient
             .patch()
@@ -371,6 +381,7 @@ class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testProduct.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testProduct.getColor()).isEqualTo(UPDATED_COLOR);
     }
 
     @Test

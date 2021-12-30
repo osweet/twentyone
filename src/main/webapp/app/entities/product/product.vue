@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="ProductHeading">
-      <span id="product-heading">Orlin's Products</span>
+      <span id="product-heading">Products</span>
       <div class="d-flex justify-content-end">
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>Refresh List</span>
@@ -23,6 +23,38 @@
     <div class="alert alert-warning" v-if="!isFetching && products && products.length === 0">
       <span>No products found</span>
     </div>
+
+    <div v-if="products && products.length > 0">
+      <div class="list-group">
+        <a
+          class="list-group-item list-group-item-action flex-column align-items-start"
+          v-for="product in products"
+          :key="product.id"
+          data-cy="entityTable"
+        >
+          <div class="row">
+            <div class="col-2 col-xs-12 justify-content-center">
+              <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/mobile_phone.png" />
+            </div>
+
+            <div class="col col-xs-12">
+              <div class="d-flex w-100 justify-content-between">
+                <router-link :to="{ name: 'ProductView', params: { productId: product.id } }"
+                  ><h5 class="mb-1">{{ product.name }}</h5></router-link
+                >
+                <small>{{ product.category }}</small>
+                <small class="mb-1">{{ product.description }}</small>
+                <p class="mb-1">Price: {{ product.price }}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <p></p>
+    <br />
+
     <div class="table-responsive" v-if="products && products.length > 0">
       <table class="table table-striped" aria-describedby="products">
         <thead>
@@ -44,9 +76,14 @@
               <span>Category</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'category'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('color')">
+              <span>Color</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'color'"></jhi-sort-indicator>
+            </th>
             <th scope="row">
               <span v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated">Action</span>
             </th>
+            <th scope="row"></th>
           </tr>
         </thead>
         <tbody>
@@ -58,6 +95,7 @@
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
             <td>{{ product.category }}</td>
+            <td>{{ product.color }}</td>
             <td class="text-right">
               <div class="btn-group" v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated">
                 <router-link :to="{ name: 'ProductView', params: { productId: product.id } }" custom v-slot="{ navigate }">

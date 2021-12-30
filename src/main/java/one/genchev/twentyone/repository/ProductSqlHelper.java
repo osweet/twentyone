@@ -14,6 +14,7 @@ public class ProductSqlHelper {
         columns.add(Column.aliased("name", table, columnPrefix + "_name"));
         columns.add(Column.aliased("price", table, columnPrefix + "_price"));
         columns.add(Column.aliased("category", table, columnPrefix + "_category"));
+        columns.add(Column.aliased("color", table, columnPrefix + "_color"));
 
         return columns;
     }

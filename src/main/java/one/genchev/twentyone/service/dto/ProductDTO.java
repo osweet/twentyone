@@ -18,6 +18,8 @@ public class ProductDTO implements Serializable {
 
     private String category;
 
+    private String color;
+
     public Long getId() {
         return id;
     }
@@ -50,6 +52,14 @@ public class ProductDTO implements Serializable {
         this.category = category;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,6 +89,7 @@ public class ProductDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", price=" + getPrice() +
             ", category='" + getCategory() + "'" +
+            ", color='" + getColor() + "'" +
             "}";
     }
 }

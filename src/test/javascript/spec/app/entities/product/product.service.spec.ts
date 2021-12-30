@@ -29,7 +29,7 @@ describe('Service Tests', () => {
 
     beforeEach(() => {
       service = new ProductService();
-      elemDefault = new Product(123, 'AAAAAAA', 0, 'AAAAAAA');
+      elemDefault = new Product(123, 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -84,6 +84,7 @@ describe('Service Tests', () => {
             name: 'BBBBBB',
             price: 1,
             category: 'BBBBBB',
+            color: 'BBBBBB',
           },
           elemDefault
         );
@@ -142,6 +143,7 @@ describe('Service Tests', () => {
             name: 'BBBBBB',
             price: 1,
             category: 'BBBBBB',
+            color: 'BBBBBB',
           },
           elemDefault
         );

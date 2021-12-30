@@ -16,7 +16,7 @@ describe('Product e2e test', () => {
   const productPageUrlPattern = new RegExp('/product(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'admin';
   const password = Cypress.env('E2E_PASSWORD') ?? 'admin';
-  const productSample = { name: 'invoice' };
+  const productSample = { name: 'RSS Awesome' };
 
   let product: any;
 
@@ -158,6 +158,8 @@ describe('Product e2e test', () => {
       cy.get(`[data-cy="price"]`).type('59757').should('have.value', '59757');
 
       cy.get(`[data-cy="category"]`).type('compressing').should('have.value', 'compressing');
+
+      cy.get(`[data-cy="color"]`).type('purple').should('have.value', 'purple');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

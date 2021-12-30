@@ -29,6 +29,7 @@ public class ProductRowMapper implements BiFunction<Row, String, Product> {
         entity.setName(converter.fromRow(row, prefix + "_name", String.class));
         entity.setPrice(converter.fromRow(row, prefix + "_price", Float.class));
         entity.setCategory(converter.fromRow(row, prefix + "_category", String.class));
+        entity.setColor(converter.fromRow(row, prefix + "_color", String.class));
         return entity;
     }
 }

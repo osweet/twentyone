@@ -29,6 +29,9 @@ public class Product implements Serializable {
     @Column("category")
     private String category;
 
+    @Column("color")
+    private String color;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -83,6 +86,19 @@ public class Product implements Serializable {
         this.category = category;
     }
 
+    public String getColor() {
+        return this.color;
+    }
+
+    public Product color(String color) {
+        this.setColor(color);
+        return this;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -110,6 +126,7 @@ public class Product implements Serializable {
             ", name='" + getName() + "'" +
             ", price=" + getPrice() +
             ", category='" + getCategory() + "'" +
+            ", color='" + getColor() + "'" +
             "}";
     }
 }
