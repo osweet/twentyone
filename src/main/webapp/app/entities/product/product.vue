@@ -33,10 +33,6 @@
           data-cy="entityTable"
         >
           <div class="row">
-            <div class="col-2 col-xs-12 justify-content-center">
-              <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/mobile_phone.png" />
-            </div>
-
             <div class="col col-xs-12">
               <div class="d-flex w-100 justify-content-between">
                 <router-link :to="{ name: 'ProductView', params: { productId: product.id } }"
@@ -83,7 +79,6 @@
             <th scope="row">
               <span v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated">Action</span>
             </th>
-            <th scope="row"></th>
           </tr>
         </thead>
         <tbody>
@@ -91,7 +86,6 @@
             <td>
               <router-link :to="{ name: 'ProductView', params: { productId: product.id } }">{{ product.id }}</router-link>
             </td>
-            <td><img src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/mobile_phone.png" /></td>
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
             <td>{{ product.category }}</td>
